@@ -177,3 +177,57 @@ nest generate module messages
 4. **명명 규칙**
    - CLI 명령어에 최종 클래스 이름의 일부만 포함
    - Nest CLI가 적절한 이름을 자동 생성
+
+## MessagesController 생성
+
+### 컨트롤러 생성의 필요성
+- Nest 애플리케이션이 유용한 콘텐츠를 제공하려면 **최소한 컨트롤러와 모듈이 반드시 필요**
+- 컨트롤러를 만든 후 MessagesModule에 연결해야 함
+
+### 컨트롤러 생성 명령
+```bash
+nest generate controller messages/messages --flat
+```
+
+### 명령어 구조 설명
+명령어는 여러 부분으로 구성됨:
+
+1. **`nest generate`**: 무언가를 생성하는 명령
+2. **`controller`**: 컨트롤러 역할을 할 클래스를 만들겠다는 의미
+3. **`messages/messages`**: 
+   - 앞부분 (`messages/`): `src` 디렉터리의 `messages` 폴더 안에 생성
+   - 뒷부분 (`messages`): 생성할 클래스/컨트롤러의 이름
+4. **`--flat`**: 옵션 플래그
+
+### --flat 옵션의 역할
+
+#### --flat 옵션 사용 시 (현재 방식)
+- `src/messages/messages.controller.ts` 파일이 직접 생성됨
+- 추가 디렉터리 없이 messages 폴더 안에 바로 생성
+- 파일이 많지 않을 때 적합
+
+#### --flat 옵션 미사용 시
+- `src/messages/controllers/messages.controller.ts` 경로로 생성
+- Nest가 자동으로 `controllers`라는 새 폴더를 생성하고 그 안에 파일 추가
+- 파일을 더 잘 정리하고 싶을 때 사용
+
+### 명령 실행 결과
+- `src/messages/messages.controller.ts` 파일 생성
+- `src/messages/messages.controller.spec.ts` 테스트 파일 생성
+- `messages.module.ts` 파일 자동 업데이트:
+  - 컨트롤러 임포트 구문 자동 추가
+  - `controllers` 배열에 `MessagesController` 자동 추가
+
+### Nest CLI generate 기능의 장점
+- 파일 생성뿐만 아니라 **자동으로 모듈에 연결**해줌
+- 수동으로 임포트하고 모듈에 추가하는 작업을 자동화
+- 시간 절약 및 실수 방지
+
+### 현재 상태
+- ✅ MessagesController 생성 완료
+- ✅ MessagesModule에 자동 연결 완료
+- ✅ 컨트롤러에 라우트 핸들러 추가 준비 완료
+
+### 다음 단계
+- MessagesController에 라우트 핸들러 추가
+- GET /messages, POST /messages, GET /messages/:id 경로 구현
